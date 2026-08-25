@@ -307,12 +307,10 @@ fn mollusk() -> Mollusk {
         //fs.active_mut()
         //    .remove(&agave_feature_set::account_data_direct_mapping::id());
         //fs
-        FeatureSet::all_enabled()
+        FeatureSet::all_enabled().runtime_features()
     };
-    let mut mollusk = Mollusk {
-        feature_set,
-        ..Default::default()
-    };
+    let mut mollusk = Mollusk::default();
+    mollusk.feature_set = feature_set;
     mollusk.add_program(&TOKEN_PROGRAM_ID, "pinocchio_token_program");
     mollusk
 }
