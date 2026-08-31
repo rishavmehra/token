@@ -155,12 +155,10 @@ unsafe fn validate_owner(
 #[allow(clippy::arithmetic_side_effects)]
 fn try_ui_amount_into_amount(ui_amount: &str, decimals: u8) -> Result<u64, ProgramError> {
     let decimals = decimals as usize;
-    let mut parts = ui_amount.split('.');
-
-    // Splitting a string, even an empty one, will always yield an iterator of at
-    // least length == 1.
-    let amount_str = parts.next().unwrap();
-    let after_decimal = parts.next().unwrap_or("");
+    let (amount_str, after_decimal) = match ui_amount.find('.') {
+        Some(position) => (&ui_amount[..position], &ui_amount[position + 1..]),
+        None => (ui_amount, ""),
+    };
     // Clean up trailing zeros.
     let after_decimal = after_decimal.trim_end_matches('0');
 
@@ -169,7 +167,7 @@ fn try_ui_amount_into_amount(ui_amount: &str, decimals: u8) -> Result<u64, Progr
     let length = amount_str.len();
 
     if (amount_str.is_empty() && after_decimal.is_empty())
-        || parts.next().is_some()
+        || after_decimal.contains('.')
         || after_decimal.len() > decimals
         || (length + decimals) > MAX_FORMATTED_DIGITS
     {
