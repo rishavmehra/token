@@ -1,8 +1,7 @@
 use {
     crate::processor::validate_owner,
     pinocchio::{
-        account_info::AccountInfo, hint::unlikely, program_error::ProgramError, pubkey::pubkey_eq,
-        ProgramResult,
+        account_info::AccountInfo, hint::unlikely, program_error::ProgramError, ProgramResult,
     },
     pinocchio_token_interface::{
         error::TokenError,
@@ -59,7 +58,7 @@ pub fn process_approve(
     }
 
     if let Some((mint_info, expected_decimals)) = expected_mint_info {
-        if unlikely(!pubkey_eq(mint_info.key(), &source_account.mint)) {
+        if unlikely(mint_info.key() != &source_account.mint) {
             return Err(TokenError::MintMismatch.into());
         }
 

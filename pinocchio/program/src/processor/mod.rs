@@ -4,7 +4,7 @@ use {
         account_info::AccountInfo,
         hint::{likely, unlikely},
         program_error::ProgramError,
-        pubkey::{pubkey_eq, Pubkey},
+        pubkey::Pubkey,
         syscalls::sol_memcpy_,
         ProgramResult,
     },
@@ -110,7 +110,7 @@ unsafe fn validate_owner(
     owner_account_info: &AccountInfo,
     signers: &[AccountInfo],
 ) -> ProgramResult {
-    if unlikely(!pubkey_eq(expected_owner, owner_account_info.key())) {
+    if unlikely(expected_owner != owner_account_info.key()) {
         return Err(TokenError::OwnerMismatch.into());
     }
 
@@ -131,7 +131,7 @@ unsafe fn validate_owner(
 
         for signer in signers.iter() {
             for (position, key) in multisig.signers[0..multisig.n as usize].iter().enumerate() {
-                if pubkey_eq(key, signer.key()) && !matched[position] {
+                if key == signer.key() && !matched[position] {
                     if !signer.is_signer() {
                         return Err(ProgramError::MissingRequiredSignature);
                     }

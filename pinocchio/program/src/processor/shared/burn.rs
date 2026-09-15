@@ -4,7 +4,6 @@ use {
         account_info::AccountInfo,
         hint::{likely, unlikely},
         program_error::ProgramError,
-        pubkey::pubkey_eq,
         ProgramResult,
     },
     pinocchio_token_interface::{
@@ -49,7 +48,7 @@ pub fn process_burn(
         .checked_sub(amount)
         .ok_or(TokenError::InsufficientFunds)?;
 
-    if unlikely(!pubkey_eq(mint_info.key(), &source_account.mint)) {
+    if unlikely(mint_info.key() != &source_account.mint) {
         return Err(TokenError::MintMismatch.into());
     }
 
@@ -61,7 +60,7 @@ pub fn process_burn(
 
     if likely(!source_account.is_owned_by_system_program_or_incinerator()) {
         match source_account.delegate() {
-            Some(delegate) if pubkey_eq(authority_info.key(), delegate) => {
+            Some(delegate) if authority_info.key() == delegate => {
                 // SAFETY: `authority_info` is not currently borrowed.
                 unsafe { validate_owner(delegate, authority_info, remaining)? };
 

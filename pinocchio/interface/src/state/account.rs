@@ -1,10 +1,6 @@
 use {
     super::{account_state::AccountState, COption, Initializable, Transmutable},
-    pinocchio::{
-        hint::likely,
-        program_error::ProgramError,
-        pubkey::{pubkey_eq, Pubkey},
-    },
+    pinocchio::{hint::likely, program_error::ProgramError, pubkey::Pubkey},
 };
 
 /// Incinerator address.
@@ -156,7 +152,7 @@ impl Account {
 
     #[inline(always)]
     pub fn is_owned_by_system_program_or_incinerator(&self) -> bool {
-        pubkey_eq(&SYSTEM_PROGRAM_ID, &self.owner) || pubkey_eq(&INCINERATOR_ID, &self.owner)
+        SYSTEM_PROGRAM_ID == self.owner || INCINERATOR_ID == self.owner
     }
 }
 
