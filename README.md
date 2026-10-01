@@ -7,6 +7,39 @@
 
 This template should help get you started developing Solana programs. Let's walk through this generated program repository and see what's included.
 
+---
+
+## Build and test pToken with the upstream SBPF toolchain
+
+These commands assume this repository is at `~/token`
+
+### Install cargo-build-sbpf
+
+Install `cargo-build-sbpf` from its default branch:
+
+```sh
+git clone git@github.com:blueshift-gg/cargo-build-sbpf.git
+cd cargo-build-sbpf
+cargo install --path .
+```
+
+### Build pToken
+
+```sh
+cd ~/token/pinocchio/program
+cargo build-sbpf
+```
+
+### Run the tests
+
+From the same directory, set `SBF_OUT_DIR` to the folder containing the compiled program:
+
+```sh
+SBF_OUT_DIR="$HOME/token/target/deploy" cargo test -- --test-threads=1
+```
+
+---
+
 ## Project setup
 
 The first thing you'll want to do is install NPM dependencies which will allow you to access all the scripts and tools provided by this template.
