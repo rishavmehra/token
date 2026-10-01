@@ -2,7 +2,6 @@ mod setup;
 
 use {
     crate::setup::TOKEN_PROGRAM_ID,
-    agave_feature_set::FeatureSet,
     mollusk_svm::{result::Check, Mollusk},
     pinocchio_token_interface::{
         native_mint,
@@ -298,21 +297,9 @@ fn create_token_account(
     }
 }
 
-/// Creates a Mollusk instance with the default feature set, excluding the
-/// `account_data_direct_mapping` feature.
+/// Creates a Mollusk instance with the default feature set.
 fn mollusk() -> Mollusk {
-    let feature_set = {
-        // When upgrading to v3.1, add this back in
-        //let fs = FeatureSet::all_enabled();
-        //fs.active_mut()
-        //    .remove(&agave_feature_set::account_data_direct_mapping::id());
-        //fs
-        FeatureSet::all_enabled()
-    };
-    let mut mollusk = Mollusk {
-        feature_set,
-        ..Default::default()
-    };
+    let mut mollusk = Mollusk::default();
     mollusk.add_program(&TOKEN_PROGRAM_ID, "pinocchio_token_program");
     mollusk
 }

@@ -19,26 +19,26 @@ pinocchio = { workspace = true }
 pinocchio-log = { version = "0.5.1", default-features = false }
 pinocchio-pubkey = "0.3"
 pinocchio-token-interface = { version = "^0", path = "../interface" }
+solana-compiler-builtins = { git = "https://github.com/blueshift-gg/solana-compiler-builtins", branch = "main" }
 
 [dev-dependencies]
-agave-feature-set = "3.0.0"
 assert_matches = "1.5.0"
-mollusk-svm = { workspace = true }
-mollusk-svm-fuzz-fixture = { workspace = true }
+mollusk-svm = "=0.15.1"
+mollusk-svm-fuzz-fixture = "=0.15.1"
 num-traits = { workspace = true }
-solana-account = "3.0.0"
+solana-account = "4.3.1"
 solana-instruction = { workspace = true }
 solana-keypair = "3.0.0"
 solana-program-error = { workspace = true }
 solana-program-option = { workspace = true }
 solana-program-pack = { workspace = true }
-solana-program-test = { version = "3.1.10", features = ["agave-unstable-api"] }
+solana-program-test = { version = "=4.2.1", features = ["agave-unstable-api"] }
 solana-pubkey = { workspace = true }
-solana-rent = "3.0.0"
+solana-rent = "4.2.1"
 solana-sdk-ids = "3.0.0"
 solana-signature = "3.0.0"
 solana-signer = "3.0.0"
-solana-transaction = "3.0.0"
+solana-transaction = "4.1.4"
 solana-transaction-error = "3.0.0"
 solana-system-interface = { workspace = true }
 spl-token-interface = { workspace = true }
