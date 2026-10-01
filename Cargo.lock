@@ -5788,7 +5788,7 @@ dependencies = [
 [[package]]
 name = "solana-compiler-builtins"
 version = "0.1.0"
-source = "git+https://github.com/blueshift-gg/solana-compiler-builtins?branch=main#1005f417d68c8c7e65fc4b3c05075bd80886f093"
+source = "git+https://github.com/blueshift-gg/solana-compiler-builtins#6638eb1e2a45c9b22fbbff07baa0117e8120ecf7"
 
 [[package]]
 name = "solana-compute-budget"
